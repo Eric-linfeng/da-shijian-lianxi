@@ -75,13 +75,13 @@
                     <h4 class="modal-title">提示</h4>
                 </div>
                 <div class="modal-body">
-                    <p>你确定要退出</p>
+                    <p>你确定要保存</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                        我再看看
+                        立即保存
                     </button>
-                    <button type="button" class="btn btn-primary btn-logout">残忍退出</button>
+                    <button type="button" class="btn btn-primary btn-logout">立即保存</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -129,7 +129,7 @@
 
                     for (var key in backData.data) {
                         // 遍历获取到的内容！
-                        var html = $('input.' + key + '').val(backData.data[key])
+                        $('input.' + key + '').val(backData.data[key])
 
                         // body.html(html)
                     }
@@ -141,7 +141,7 @@
             })
 
             // 对文件进行操作，可以选择想要的文件
-            $('#exampleInputFile').change(function () {
+            $('#exampleInputFile').change(function (e) {
                 console.log(this.files[0]);
 
                 var url = URL.createObjectURL(this.files[0])
@@ -166,11 +166,11 @@
                         console.log(backData)
                         //  渲染到页面
                         if (backData.code == 200) {
-                            alert(233)
+                            // alert(233)
                             $('.modal').modal()
-                            setInterval(function () {
-                                window.location.reload()
-                            }, 1000)
+                            // setInterval(function () {
+                            //     window.location.reload()
+                            // }, 1000)
                         }
 
                     }
