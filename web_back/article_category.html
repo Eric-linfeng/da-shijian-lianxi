@@ -115,21 +115,15 @@
         });
 
         $('#model_shutoff').click(function () {
-            alert('shutoff');
             $('#addModal').modal('hide');
         });
 
         $('#model_add').click(function () {
-            alert('add');
             $('#addModal').modal('hide');
         });
 
-        $('.category_table').delegate('a', 'click', function () {
-            if ($(this).hasClass('btn-info')) {
-                $('#addModal .modal-title').html('修改分类名称');
-                $('#addModal').modal('show');
-            }
-        })      
+       
+
     </script>
     <script id="mbYQ" type="text/html">
         {{each data}}
@@ -137,9 +131,8 @@
                 <td>{{$value.name}}</td>
                 <td>{{$value.slug}}</td>
                 <td class="text-center">
-                    <a href="javascript:editTr({&quot;id&quot;:&quot;1&quot;,&quot;slug&quot;:&quot;uncategorized&quot;,&quot;name&quot;:&quot;未分类&quot;});"
-                        class="btn btn-info btn-xs">编辑</a>
-                    <a href="javascript:deleteTr( 1 );" class="btn btn-danger btn-xs">删除</a>
+                    <a href="javascript:editTr('id':'{{$value.id}}','slug': '{{value.slug}}','name':'{{value.name}}');" class="btn btn-info btn-xs">编辑</a>
+                    <a href="javascript:editTr({{$value.id}});" class="btn btn-danger btn-xs">删除</a>
                  </td>
             </tr>
         {{/each}}
@@ -222,11 +215,6 @@
                 var slug = $('#recipient-name2').val()
                 console.log(name);
                 console.log(slug);
-                
-                
-
-
-
                 $.ajax({
                     url: 'https://autumnfish.cn/big/admin/category_add',
                     type: 'post',
@@ -252,6 +240,63 @@
         })
     </script>
 
+    <script>
+        // 编辑修改类别内容，同时点击删除按钮，删除文章类别
+
+        // 1.点击编辑按钮，变成绿色
+
+        //    区分 新增和编辑
+        //     弹出的对话框中设置内容
+        //     步骤
+        //     1. 模板中可以把数据填充到 editTr这个方法中
+        //     2. 增加这个方法，定义形参获取数据
+        //     3. 把数据填充到模态框中
+
+        //     删除数据
+        //     请求地址：http://localhost:8000/admin/category_delete
+        //     请求方式：post
+        //     请求参数：
+        //     步骤
+        //     1. 实现删除a标签绑定的那个方法
+        //     2. 每次调用方法是传入这一行数据对应的id
+        //     3. 调用接口
+        //     4. 提示删除成功之后 重新获取数据（局部刷新）
+        $(function(){
+            // 定义edytTr方法(挨个设置数据)
+            window.editTr =function(data){
+                console.log(data);
+
+                for(const key in data){
+                    $('input[name= '+key+']').val(data[key])
+                }
+                
+            }
+
+
+            $('#model_add').click(function(){
+                // 做判断
+                // if($this.hasClass('btn-success')){
+
+
+                // }
+            })
+
+            $('.btn-add').click(function(){
+                $('.model-title').text('新增分类')
+                 $('#model_add').text('新增').removeClass('btn-success')
+            })
+                //事件委托
+             $('.category_table').on('click', 'a', function () {
+                if ($(this).hasClass('btn-info')) {
+                    $('.modal-title').html('修改文章名称');
+                    $('#model_add').text('修改').addClass('btn-success')
+                    $('#addModal').modal('show');
+                    //  $('#model_add').removeClass('btn-primary')
+                }
+             })
+        })
+
+    </script>
 </body>
 
 </html>
