@@ -75,14 +75,14 @@
                     <h4 class="modal-title">提示</h4>
                 </div>
                 <div class="modal-body">
-                    <p>你确定要保存</p>
+                    <p>恭喜你，修改成功了哦&hellip;</p>
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         立即保存
                     </button>
                     <button type="button" class="btn btn-primary btn-logout">立即保存</button>
-                </div>
+                </div> -->
             </div>
             <!-- /.modal-content -->
         </div>
@@ -153,29 +153,26 @@
             // 对按钮操作，保存用户信息修改
             $('.btn-success').click(function (e) {
                 e.preventDefault()
-
+                // 获取数据
                 var formData = new FormData($('.article_form')[0])
+                // ajax
                 $.ajax({
-
                     url: 'https://autumnfish.cn/big/admin/userinfo_edit',
                     type: 'post',
                     data: formData,
-                    contentType: false,
-                    processData: false,
+                    contentType: false, // 不设置请求头 用默认值
+                    processData: false, // 不把数据变为 key=value&key2=value2
                     success: function (backData) {
                         console.log(backData)
-                        //  渲染到页面
                         if (backData.code == 200) {
-                            // alert(233)
                             $('.modal').modal()
-                            // setInterval(function () {
-                            //     window.location.reload()
-                            // }, 1000)
+                            setTimeout(function () {
+                                // js刷新浏览器 
+                                window.location.reload()
+                            }, 1000)
                         }
-
                     }
                 })
-
             })
         })
 
