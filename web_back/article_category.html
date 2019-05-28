@@ -299,7 +299,8 @@
                 }
 
             }
-
+            // < a href = 'javascript:editTr({"id":"{{$value.id}}","slug":"{{$value.slug}}","name":"{{$value.name}}"});'
+            // a 标签绑定JS（内容转入内容对象）
             window.deleteTr = function (id) {
                 // 调用接口
                 $.ajax({
@@ -317,6 +318,9 @@
                     }
                 })
             }
+
+            // a href = "javascript:deleteTr( {{$value.id}} );"
+            // a 标签绑定JS（内容转入内容对象）
             // 默认调用一次
             getCategory()
 
